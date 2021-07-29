@@ -1,0 +1,45 @@
+﻿@page
+@model HotDesk.Pages.ResvDates.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ResvDate</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ResvDate.ID" />
+            <div class="form-group">
+                <label asp-for="ResvDate.Name" class="control-label"></label>
+                <input asp-for="ResvDate.Name" class="form-control" />
+                <span asp-validation-for="ResvDate.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResvDate.FromDate" class="control-label"></label>
+                <input asp-for="ResvDate.FromDate" class="form-control" />
+                <span asp-validation-for="ResvDate.FromDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResvDate.ToDate" class="control-label"></label>
+                <input asp-for="ResvDate.ToDate" class="form-control" />
+                <span asp-validation-for="ResvDate.ToDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
