@@ -11,8 +11,10 @@ namespace HotDesk.Models
         public int ID { get; set; }
         public string Name { get; set; }
         [DataType(DataType.Date)]
+        [Display(Name = "From Date")]
         public DateTime FromDate { get; set; }
         [DataType(DataType.Date)]
+        [Display(Name = "To Date")]
         public DateTime ToDate { get; set; }
 
         public ICollection<AvailDesk> AvailDesks { get; set; }

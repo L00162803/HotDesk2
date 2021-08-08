@@ -2,10 +2,10 @@
 @model HotDesk.Pages.ResvDates.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dates";
 }
 
-<h1>Index</h1>
+<h1>Dates</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,13 +14,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ResvDate[0].Name)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.ResvDate[0].Name)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ResvDate[0].FromDate)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.FromDateSort">
+                    @Html.DisplayNameFor(model => model.ResvDate[0].FromDate)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ResvDate[0].ToDate)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.ToDateSort">
+                    @Html.DisplayNameFor(model => model.ResvDate[0].ToDate)
+                </a>
             </th>
             <th></th>
         </tr>

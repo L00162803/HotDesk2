@@ -24,5 +24,7 @@ namespace HotDesk.Data
             modelBuilder.Entity<AvailDesk>().ToTable("AvailDesk");
             modelBuilder.Entity<Desk>().ToTable("Desk");
         }
+
+        public DbSet<HotDesk.Models.User> User { get; set; }
     }
 }

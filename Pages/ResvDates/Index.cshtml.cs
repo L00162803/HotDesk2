@@ -12,18 +12,53 @@ namespace HotDesk.Pages.ResvDates
 {
     public class IndexModel : PageModel
     {
-        private readonly HotDesk.Data.HotDeskContext _context;
+        private readonly HotDeskContext _context;
 
         public IndexModel(HotDesk.Data.HotDeskContext context)
         {
             _context = context;
         }
 
-        public IList<ResvDate> ResvDate { get;set; }
+        public string NameSort { get; set; }
+        public string FromDateSort { get; set; }
+        public string ToDateSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
 
-        public async Task OnGetAsync()
+
+        public IList<ResvDate> ResvDate { get;set; }
+        public async Task OnGetAsync(string sortOrder)     
         {
-            ResvDate = await _context.ResvDate.ToListAsync();
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            FromDateSort = sortOrder == "FDate" ? "fdate_desc" : "FDate";
+            ToDateSort = sortOrder == "TDate" ? "tdate_desc" : "TDate";
+
+            IQueryable<ResvDate> resvdatesIQ = from s in _context.ResvDate
+                                             select s;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    resvdatesIQ = resvdatesIQ.OrderByDescending(s => s.Name);
+                    break;
+                case "FDate":
+                    resvdatesIQ = resvdatesIQ.OrderBy(s => s.FromDate);
+                    break;
+                case "fdate_desc":
+                    resvdatesIQ = resvdatesIQ.OrderByDescending(s => s.FromDate);
+                    break;
+                case "TDate":
+                    resvdatesIQ = resvdatesIQ.OrderBy(s => s.ToDate);
+                    break;
+                case "tdate_desc":
+                    resvdatesIQ = resvdatesIQ.OrderByDescending(s => s.ToDate);
+                    break;
+                default:
+                    resvdatesIQ = resvdatesIQ.OrderBy(s => s.Name);
+                    break;
+            }
+
+            ResvDate = await resvdatesIQ.AsNoTracking().ToListAsync();
         }
     }
 }
