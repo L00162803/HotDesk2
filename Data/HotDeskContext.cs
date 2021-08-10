@@ -26,5 +26,11 @@ namespace HotDesk.Data
         }
 
         public DbSet<HotDesk.Models.User> User { get; set; }
+
+        public DbSet<HotDesk.Models.Reservation> Reservation { get; set; }
+
+        
+
+        
     }
 }
