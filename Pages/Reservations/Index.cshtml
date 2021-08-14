@@ -5,8 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-<div> @Html.DisplayFor(Model => Model.ViewModel.SelectedDate)</div>
+<h1>Reservations</h1>
 <form method="post">
     <div> <input asp-for="selectedDate" onchange="this.form.submit();" type="date" id="startDate" value="@Model.ViewModel.SelectedDate.ToString("yyyy-MM-dd")"></div>
 </form>
@@ -25,13 +24,10 @@
             <td class="deskName">@desk.DeskName</td>
             @foreach (var day in desk.DeskDateStatuses)
             {
-                <td class="day @day.ReservationStatus">@day.ReservationStatus</td>
+                <td class="day @day.ReservationStatus"> @day.ReservationStatus</td>
 
             }
         </tr>
     }
-
-
-
-
 </table>
+

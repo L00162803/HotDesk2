@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using HotDesk.Data;
 using HotDesk.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace HotDesk.Pages.Reservations
 {
@@ -15,7 +16,7 @@ namespace HotDesk.Pages.Reservations
         private readonly HotDesk.Data.HotDeskContext _context;
         public ReservationsViewModel ViewModel { get; set; }
         [BindProperty]
-        public DateTime selectedDate { get; set; } = new DateTime(2021, 1, 10);
+        public DateTime selectedDate { get; set; } = new DateTime(2021, 1, 10);        
         static DateTime startDate = new DateTime(2021, 1, 10);
         public IndexModel(HotDesk.Data.HotDeskContext context)
         {
@@ -34,8 +35,9 @@ namespace HotDesk.Pages.Reservations
                                    select d).ToList();
 
             var checkDate = startDate;
-            var deskStatus = new DeskStatus();
-            int userID = 1;
+            var deskStatus = new DeskStatus();           
+            //int userID = 1;
+            int userID = Convert.ToInt32(HttpContext.Session.GetString("ActiveUser"));
             viewModel.SelectedDate = startDate;
             //For each desk check status for next seven days
             foreach (Desk checkDesk in deskList)
@@ -88,10 +90,15 @@ namespace HotDesk.Pages.Reservations
         }
         public async Task<IActionResult> OnPost()
         {
-
             startDate = selectedDate;
             return RedirectToAction("OnGet");
         }
+
+        public async Task ClickDate()
+        {
+            startDate = selectedDate;            
+        }
+
     }
     public enum DeskStatus
     {

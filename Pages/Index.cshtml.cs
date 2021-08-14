@@ -1,4 +1,5 @@
 ﻿using HotDesk.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -41,7 +42,7 @@ namespace HotDesk.Pages
         public async Task<IActionResult> OnPost()            
         {
             activeUser = selectedUserID;
-            
+            HttpContext.Session.SetString("ActiveUser", activeUser.ToString());
             return RedirectToAction("OnGet");
             
         }

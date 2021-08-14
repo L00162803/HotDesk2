@@ -29,12 +29,28 @@ namespace HotDesk
 
             services.AddDbContext<HotDeskContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("HotDeskContext")));
-           
+            
+            // Add MVC services to the services container.
+            services.AddMvc();
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // IMPORTANT: This session call MUST go before UseMvc()
+            app.UseSession();
+
+            // Add MVC to the request pipeline.
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -57,6 +73,8 @@ namespace HotDesk
             {
                 endpoints.MapRazorPages();
             });
+
+            
         }
     }
 }
