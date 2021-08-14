@@ -13,6 +13,7 @@ namespace HotDesk.Pages.Reservations
     public class IndexModel : PageModel
     {
         private readonly HotDesk.Data.HotDeskContext _context;
+        public ReservationsViewModel ViewModel { get; set; }
 
         public IndexModel(HotDesk.Data.HotDeskContext context)
         {
@@ -80,7 +81,7 @@ namespace HotDesk.Pages.Reservations
                 }
                 viewModel.AddDeskReservation(deskReservation);
             }
-
+            this.ViewModel = viewModel;
         }
     }
     public enum DeskStatus
