@@ -14,7 +14,9 @@ namespace HotDesk.Pages.Reservations
     {
         private readonly HotDesk.Data.HotDeskContext _context;
         public ReservationsViewModel ViewModel { get; set; }
-
+        [BindProperty]
+        public DateTime selectedDate { get; set; } = new DateTime(2021, 1, 10);
+        static DateTime startDate = new DateTime(2021, 1, 10);
         public IndexModel(HotDesk.Data.HotDeskContext context)
         {
             _context = context;
@@ -25,12 +27,12 @@ namespace HotDesk.Pages.Reservations
         public async Task OnGetAsync()
         {
             var viewModel = new ReservationsViewModel();
-            
+
             //Get list of desks
             List<Desk> deskList = (from d in _context.Desk
-                        orderby d.Name
-                        select d).ToList();
-            var startDate = new DateTime(2021, 1, 10);
+                                   orderby d.Name
+                                   select d).ToList();
+
             var checkDate = startDate;
             var deskStatus = new DeskStatus();
             int userID = 1;
@@ -46,9 +48,9 @@ namespace HotDesk.Pages.Reservations
                     checkDate = startDate.AddDays(i);
                     // List of date ranges containing check date
                     List<ResvDate> containingRanges = (from r in _context.ResvDate
-                                                            where r.FromDate <= checkDate && r.ToDate >= checkDate
-                                                            select r).ToList();
-                    if(containingRanges.Count==0)
+                                                       where r.FromDate <= checkDate && r.ToDate >= checkDate
+                                                       select r).ToList();
+                    if (containingRanges.Count == 0)
                     {
                         deskStatus = DeskStatus.UnAvailable;
                     }
@@ -57,7 +59,7 @@ namespace HotDesk.Pages.Reservations
                         //Is there a reservation for that desk / date combo?
 
                         List<Reservation> deskReservations = (from r in _context.Reservation
-                                                              where r.DeskID == checkDesk.ID && r.ResvDate >= checkDate
+                                                              where r.DeskID == checkDesk.ID && r.ResvDate == checkDate
                                                               select r).ToList();
                         if (deskReservations.Count > 0 && deskReservations.ElementAt(0).UserID.Equals(userID))
                         {
@@ -67,21 +69,28 @@ namespace HotDesk.Pages.Reservations
                         {
                             deskStatus = DeskStatus.BookedByOther;
                         }
-                        if (deskReservations.Count == 0 )
+                        if (deskReservations.Count == 0)
                         {
                             deskStatus = DeskStatus.Available;
                         }
-                        DeskDateStatus deskDateStatus = new DeskDateStatus();
-                        deskDateStatus.ReservationDate = checkDate;
-                        deskDateStatus.ReservationStatus = deskStatus;
-                        deskReservation.AddStatus(deskDateStatus);
-                        //deskReservation.DeskDateStatuses.Add(deskDateStatus);
                     }
+                    DeskDateStatus deskDateStatus = new DeskDateStatus();
+                    deskDateStatus.ReservationDate = checkDate;
+                    deskDateStatus.ReservationStatus = deskStatus;
+                    deskReservation.AddStatus(deskDateStatus);
+                    //deskReservation.DeskDateStatuses.Add(deskDateStatus);
+
 
                 }
                 viewModel.AddDeskReservation(deskReservation);
             }
             this.ViewModel = viewModel;
+        }
+        public async Task<IActionResult> OnPost()
+        {
+
+            startDate = selectedDate;
+            return RedirectToAction("OnGet");
         }
     }
     public enum DeskStatus
