@@ -8,3 +8,8 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<form method="post">
+    <select asp-for="selectedUserID" asp-items="Model.UserList" onchange="this.form.submit();">
+        <option value="">Logon As</option>
+    </select>       
+</form>

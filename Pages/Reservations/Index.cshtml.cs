@@ -33,14 +33,14 @@ namespace HotDesk.Pages.Reservations
             var checkDate = startDate;
             var deskStatus = new DeskStatus();
             int userID = 1;
-
+            viewModel.SelectedDate = startDate;
             //For each desk check status for next seven days
             foreach (Desk checkDesk in deskList)
             {
                 DeskReservation deskReservation = new DeskReservation();
                 deskReservation.DeskID = checkDesk.ID;
                 deskReservation.DeskName = checkDesk.Name;
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     checkDate = startDate.AddDays(i);
                     // List of date ranges containing check date
@@ -68,15 +68,17 @@ namespace HotDesk.Pages.Reservations
                         }
                         if (deskReservations.Count == 0 )
                         {
-                            deskStatus = DeskStatus.UnAvailable;
+                            deskStatus = DeskStatus.Available;
                         }
                         DeskDateStatus deskDateStatus = new DeskDateStatus();
                         deskDateStatus.ReservationDate = checkDate;
                         deskDateStatus.ReservationStatus = deskStatus;
-                        deskReservation.DeskDateStatuses.Add(deskDateStatus);
+                        deskReservation.AddStatus(deskDateStatus);
+                        //deskReservation.DeskDateStatuses.Add(deskDateStatus);
                     }
 
                 }
+                viewModel.AddDeskReservation(deskReservation);
             }
 
         }
@@ -92,14 +94,15 @@ namespace HotDesk.Pages.Reservations
     {
         public int DeskID { get; set; }
         public string DeskName { get; set; }
-        private List<DeskDateStatus> deskDateStatuses { get; set; }
+        private List<DeskDateStatus> deskDateStatuses = new List<DeskDateStatus>();
         public List<DeskDateStatus> DeskDateStatuses {
             //get => this.deskDateStatuses == null ? new List<DeskDateStatus>() : this.deskDateStatuses; // Ternary operator
-            get => this.deskDateStatuses ?? new List<DeskDateStatus>(); // null coalescing operator
-            set
-            {
-                this.deskDateStatuses = value;
-            } 
+            get => this.deskDateStatuses;
+             
+        }
+        public void AddStatus(DeskDateStatus deskDatestatus)
+        {
+            this.DeskDateStatuses.Add(deskDatestatus);
         }
     }
 
@@ -112,6 +115,11 @@ namespace HotDesk.Pages.Reservations
     public class ReservationsViewModel 
     {
         public DateTime SelectedDate { get; set; }
-        public List<DeskReservation> DeskReservations { get; set; }
+        private List<DeskReservation> deskReservations = new List<DeskReservation>();
+        public List<DeskReservation> DeskReservations { get => this.deskReservations; }
+        public void AddDeskReservation(DeskReservation deskReservation)
+        {
+            this.DeskReservations.Add(deskReservation);
+        }
     }
 }

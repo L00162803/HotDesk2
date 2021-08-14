@@ -30,6 +30,11 @@
                 <span asp-validation-for="User.Type" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="User.LogonName" class="control-label"></label>
+                <input asp-for="User.LogonName" class="form-control" />
+                <span asp-validation-for="User.LogonName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
