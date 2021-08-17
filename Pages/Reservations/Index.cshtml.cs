@@ -93,10 +93,37 @@ namespace HotDesk.Pages.Reservations
             startDate = selectedDate;
             return RedirectToAction("OnGet");
         }
-
-        public async Task ClickDate()
+        public async Task<IActionResult> OnPostDateChange()
         {
-            startDate = selectedDate;            
+            startDate = selectedDate;
+            return RedirectToAction("OnGet");
+        }
+
+        public async Task<IActionResult> ChangeStatus(int deskID, DateTime resDate)
+        {
+            
+            return RedirectToAction("OnGet");
+        }
+
+        public async Task<IActionResult> OnGetChangeReservationStatus(int id, DateTime resDate, DeskStatus status)
+        {
+            int deskId = id;
+            DateTime clickDate = resDate;
+            if(status==DeskStatus.Available)
+            {
+                var newReservation = new Reservation();
+                newReservation.DeskID = id;
+                newReservation.ResvDate = resDate;
+                newReservation.UserID = 1;
+                _context.Reservation.Add(newReservation);
+                await _context.SaveChangesAsync();
+            }
+            if (status == DeskStatus.BookedByMe)
+            {
+                
+            }
+
+            return RedirectToAction("OnGet");
         }
 
     }

@@ -30,19 +30,20 @@ namespace HotDesk.Pages
         public void OnGet()
         {
             // LINQ to return list of users
-            UserList = _context.User.Select(u =>
+            UserList = _context.User.Select(u =>                                    
                                     new SelectListItem
                                     {
                                         Value = u.ID.ToString(),
                                         Text = u.LogonName,                                        
                                     }).ToList();
+            
 
             selectedUserID = activeUser;
         }
         public async Task<IActionResult> OnPost()            
         {
-            activeUser = selectedUserID;
-            HttpContext.Session.SetString("ActiveUser", activeUser.ToString());
+            activeUser = selectedUserID;      
+            HttpContext.Session.SetString("ActiveUser",activeUser.ToString());
             return RedirectToAction("OnGet");
             
         }

@@ -168,3 +168,4 @@ C:\Users\mconnolly\source\repos\HotDesk\obj\Debug\net5.0\HotDesk.dll
 C:\Users\mconnolly\source\repos\HotDesk\obj\Debug\net5.0\ref\HotDesk.dll
 C:\Users\mconnolly\source\repos\HotDesk\obj\Debug\net5.0\HotDesk.pdb
 C:\Users\mconnolly\source\repos\HotDesk\obj\Debug\net5.0\HotDesk.genruntimeconfig.cache
+C:\Users\mconnolly\source\repos\HotDesk\obj\Debug\net5.0\HotDesk.csproj.AssemblyReference.cache

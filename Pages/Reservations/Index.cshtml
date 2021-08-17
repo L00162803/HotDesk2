@@ -6,28 +6,36 @@
 }
 
 <h1>Reservations</h1>
-<form method="post">
-    <div> <input asp-for="selectedDate" onchange="this.form.submit();" type="date" id="startDate" value="@Model.ViewModel.SelectedDate.ToString("yyyy-MM-dd")"></div>
+<form method="post" asp-page-handler="DateChange">
+    <div>
+        <input asp-for="selectedDate" onchange="this.form.submit();" type="date" id="startDate" value="@Model.ViewModel.SelectedDate.ToString("yyyy-MM-dd")">
+    </div>
 </form>
-<table id="DeskReservationsContainer">
-    <tr id="DaysHeaderContainer">
-        <th class="deskName"></th>
-        @for (int i = 0; i < 7; i++)
-        {
-            <th class="day">@Model.ViewModel.SelectedDate.AddDays(i).ToString("ddd dd/MM")</th>
-        }
-
-    </tr>
-    @foreach (var desk in Model.ViewModel.DeskReservations)
-    {
-        <tr id="DeskRowsContainer">
-            <td class="deskName">@desk.DeskName</td>
-            @foreach (var day in desk.DeskDateStatuses)
+<form method="post" asp-page-handler="DateChange">
+    <table id="DeskReservationsContainer">
+        <tr id="DaysHeaderContainer">
+            <th class="deskName"></th>
+            @for (int i = 0; i < 7; i++)
             {
-                <td class="day @day.ReservationStatus"> @day.ReservationStatus</td>
-
+                <th class="day">@Model.ViewModel.SelectedDate.AddDays(i).ToString("ddd dd/MM")</th>
             }
-        </tr>
-    }
-</table>
 
+        </tr>
+        @foreach (var desk in Model.ViewModel.DeskReservations)
+        {
+            <tr id="DeskRowsContainer">
+                <td class="deskName">@desk.DeskName</td>
+                @foreach (var day in desk.DeskDateStatuses)
+                {
+                    <td class="day @day.ReservationStatus">
+                        <div>
+                            <a asp-page-handler="ChangeReservationStatus" asp-route-id="@desk.DeskID" asp-route-resDate="@day.ReservationDate" asp-route-status="@day.ReservationStatus">@day.ReservationStatus</a>
+                        </div>
+                    </td>
+                }
+
+            </tr>
+
+        }
+    </table>
+</form>
