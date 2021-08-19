@@ -10,6 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using HotDesk.Data;
+using System.Threading;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace HotDesk
 {
@@ -35,11 +38,14 @@ namespace HotDesk
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
             services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             // IMPORTANT: This session call MUST go before UseMvc()
             app.UseSession();
 
@@ -63,6 +69,22 @@ namespace HotDesk
             }
 
             app.UseHttpsRedirection();
+
+            //MC added
+            var supportedCultures = new[]
+            {
+               new CultureInfo("en-GB"),
+
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-GB"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+            //End MC added
+
             app.UseStaticFiles();
 
             app.UseRouting();

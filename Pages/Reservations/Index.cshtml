@@ -28,8 +28,9 @@
                 @foreach (var day in desk.DeskDateStatuses)
                 {
                     <td class="day @day.ReservationStatus">
-                        <div>
-                            <a asp-page-handler="ChangeReservationStatus" asp-route-id="@desk.DeskID" asp-route-resDate="@day.ReservationDate" asp-route-status="@day.ReservationStatus">@day.ReservationStatus</a>
+                        
+                        <div>                            
+                            <a asp-page-handler="ChangeReservationStatus" asp-route-resDate= "@day.ReservationDate.ToString("dd-MM-yyyy")" asp-route-id="@desk.DeskID" asp-route-status="@day.ReservationStatus">@day.ReservationStatus</a>
                         </div>
                     </td>
                 }

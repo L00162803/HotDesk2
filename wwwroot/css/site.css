@@ -79,15 +79,15 @@ body {
 }
 
 #DeskReservationsContainer .day.Available {
-    background-color: green;
+    background-color: greenyellow;
 }
 
 #DeskReservationsContainer .day.UnAvailable {
-    background-color: grey;
+    background-color: lightgray;
 }
 
 #DeskReservationsContainer .day.BookedByMe {
-    background-color: blue;
+    background-color: deepskyblue;
 }
 
 #DeskReservationsContainer .day.BookedByOther {

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HotDesk.Data;
 using HotDesk.Models;
 using Microsoft.AspNetCore.Http;
+using System.Globalization;
 
 namespace HotDesk.Pages.Reservations
 {
@@ -18,6 +19,7 @@ namespace HotDesk.Pages.Reservations
         [BindProperty]
         public DateTime selectedDate { get; set; } = new DateTime(2021, 1, 10);        
         static DateTime startDate = new DateTime(2021, 1, 10);
+
         public IndexModel(HotDesk.Data.HotDeskContext context)
         {
             _context = context;
@@ -34,7 +36,7 @@ namespace HotDesk.Pages.Reservations
                                    orderby d.Name
                                    select d).ToList();
 
-            var checkDate = startDate;
+            DateTime checkDate = startDate;
             var deskStatus = new DeskStatus();           
             //int userID = 1;
             int userID = Convert.ToInt32(HttpContext.Session.GetString("ActiveUser"));
@@ -105,23 +107,30 @@ namespace HotDesk.Pages.Reservations
             return RedirectToAction("OnGet");
         }
 
-        public async Task<IActionResult> OnGetChangeReservationStatus(int id, DateTime resDate, DeskStatus status)
+        public async Task<IActionResult> OnGetChangeReservationStatus(String resDate,int id, DeskStatus status)
         {
             int deskId = id;
-            DateTime clickDate = resDate;
-            if(status==DeskStatus.Available)
+            int userID = Convert.ToInt32(HttpContext.Session.GetString("ActiveUser"));
+
+            DateTime resvDate = DateTime.ParseExact(resDate, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            if (status==DeskStatus.Available)
             {
                 var newReservation = new Reservation();
                 newReservation.DeskID = id;
-                newReservation.ResvDate = resDate;
-                newReservation.UserID = 1;
+                newReservation.ResvDate = resvDate;
+                newReservation.UserID = userID;
                 _context.Reservation.Add(newReservation);
                 await _context.SaveChangesAsync();
             }
             if (status == DeskStatus.BookedByMe)
             {
-                
+                List<Reservation> delReservation = (from r in _context.Reservation
+                                    where r.ResvDate == resvDate && r.DeskID == id && r.UserID==userID
+                                    select r).ToList();
+                _context.Reservation.Remove(delReservation[0]);
+                await _context.SaveChangesAsync();
             }
+
 
             return RedirectToAction("OnGet");
         }
