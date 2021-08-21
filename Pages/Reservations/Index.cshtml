@@ -4,13 +4,22 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<style>
+    td
+    {
+        border: 1px solid black;
+    }
+</style>
 <h1>Reservations</h1>
+<br />
 <form method="post" asp-page-handler="DateChange">
     <div>
         <input asp-for="selectedDate" onchange="this.form.submit();" type="date" id="startDate" value="@Model.ViewModel.SelectedDate.ToString("yyyy-MM-dd")">
     </div>
 </form>
+<br />
+<br />
+
 <form method="post" asp-page-handler="DateChange">
     <table id="DeskReservationsContainer">
         <tr id="DaysHeaderContainer">

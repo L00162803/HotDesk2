@@ -20,30 +20,43 @@ namespace HotDesk.Pages.Desks
             _context = context;
         }
 
+        public string NameSort { get; set; }
+        public string LocationSort { get; set; }
+        public string CategorySort { get; set; }
+        public string CurrentSort { get; set; }
+
         public IList<Desk> Desk { get;set; }
         [BindProperty(SupportsGet = true)]
         public string SearchString { get; set; }
         public SelectList Categories { get; set; }
         [BindProperty(SupportsGet = true)]
         public string DeskCategory { get; set; }
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortOrder)
         {
-            // LINQ to return list of desk categories
-            IQueryable<string> categoryQuery = from m in _context.Desk
-                                            orderby m.Category
-                                            select m.Category;
-            var desks = from d in _context.Desk
-                         select d;
-            if (!string.IsNullOrEmpty(SearchString))
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            LocationSort = String.IsNullOrEmpty(sortOrder) ? "location_desc" : "";
+            CategorySort = String.IsNullOrEmpty(sortOrder) ? "category_desc" : "";
+
+            IQueryable<Desk> desksIQ = from s in _context.Desk
+                                               select s;
+
+            switch (sortOrder)
             {
-                desks = desks.Where(s => s.Category.Contains(SearchString));
+                case "name_desc":
+                    desksIQ = desksIQ.OrderByDescending(s => s.Name);
+                    break;
+                case "location_desc":
+                    desksIQ = desksIQ.OrderByDescending(s => s.Location);
+                    break;
+                case "category_desc":
+                    desksIQ = desksIQ.OrderByDescending(s => s.Category);
+                    break;
+                default:
+                    desksIQ = desksIQ.OrderBy(s => s.Name);
+                    break;
             }
-            if (!string.IsNullOrEmpty(DeskCategory))
-            {
-                desks = desks.Where(x => x.Category == DeskCategory);
-            }
-            Categories = new SelectList(await categoryQuery.Distinct().ToListAsync());
-            Desk = await desks.ToListAsync();
+
+            Desk = await desksIQ.AsNoTracking().ToListAsync();
         }
     }
 }

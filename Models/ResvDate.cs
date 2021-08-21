@@ -9,6 +9,7 @@ namespace HotDesk.Models
     public class ResvDate
     {
         public int ID { get; set; }
+        [Display(Name = "Range Name")]
         public string Name { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "From Date")]
@@ -16,7 +17,7 @@ namespace HotDesk.Models
         [DataType(DataType.Date)]
         [Display(Name = "To Date")]
         public DateTime ToDate { get; set; }
-
+        [Display(Name = "Available Desks")]
         public ICollection<AvailDesk> AvailDesks { get; set; }
     }
 }

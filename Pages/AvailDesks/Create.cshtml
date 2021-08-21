@@ -7,7 +7,7 @@
 
 <h1>Create</h1>
 
-<h4>AvailDesk</h4>
+<h4>Available Desks</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,7 +18,7 @@
                 <select asp-for="AvailDesk.ResvDateID" class="form-control" asp-items="ViewBag.ResvDateName"></select>
             </div>
             <div class="form-group">
-                <label asp-for="AvailDesk.DeskID" class="control-label"></label>
+                <label asp-for="AvailDesk.Desk.Name" class="control-label"></label>
                 <select asp-for="AvailDesk.DeskID" class ="form-control" asp-items="ViewBag.DeskName"></select>
             </div>
             <div class="form-group">

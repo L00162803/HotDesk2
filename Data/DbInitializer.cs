@@ -8,7 +8,7 @@ namespace HotDesk.Data
     {
         public static void Initialize(HotDeskContext context)
         {
-            // Look for any students.
+            // Look for any desks.
             if (context.Desk.Any())
             {
                 return;   // DB has been seeded

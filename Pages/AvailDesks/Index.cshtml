@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Available Desks</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -17,13 +17,7 @@
                 Range Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AvailDesk[0].ResvDate)
-            </th>
-            <th>
                 Desk Name
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AvailDesk[0].Desk)
             </th>
             <th></th>
         </tr>
@@ -36,13 +30,7 @@
                 @Html.DisplayFor(ResvDateItem => item.ResvDate.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ResvDate.ID)
-            </td>
-            <td>
                 @Html.DisplayFor(deskItem => item.Desk.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Desk.ID)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

@@ -38,8 +38,12 @@ namespace HotDesk.Pages.AvailDesks
             {
                 return NotFound();
             }
-           ViewData["DeskID"] = new SelectList(_context.Desk, "ID", "ID");
-           ViewData["ResvDateID"] = new SelectList(_context.ResvDate, "ID", "ID");
+            ViewData["DeskID"] = new SelectList(_context.Desk, "ID", "ID");
+            ViewData["DeskName"] = new SelectList(_context.Desk, "ID", "Name");
+            
+            ViewData["ResvDateID"] = new SelectList(_context.ResvDate, "ID", "ID");
+            ViewData["ResvDateName"] = new SelectList(_context.ResvDate, "ID", "Name");
+
             return Page();
         }
 

@@ -7,7 +7,7 @@
 
 <h1>Edit</h1>
 
-<h4>AvailDesk</h4>
+<h4>Available Desks</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,13 +15,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="AvailDesk.ID" />
             <div class="form-group">
-                <label asp-for="AvailDesk.ResvDateID" class="control-label"></label>
-                <select asp-for="AvailDesk.ResvDateID" class="form-control" asp-items="ViewBag.ResvDateID"></select>
+                <label asp-for="AvailDesk.ResvDate.Name" class="control-label"></label>
+                <select asp-for="AvailDesk.ResvDateID" class="form-control" asp-items="ViewBag.ResvDateName"></select>
                 <span asp-validation-for="AvailDesk.ResvDateID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AvailDesk.DeskID" class="control-label"></label>
-                <select asp-for="AvailDesk.DeskID" class="form-control" asp-items="ViewBag.DeskID"></select>
+                <label asp-for="AvailDesk.Desk.Name" class="control-label"></label>
+                <select asp-for="AvailDesk.DeskID" class="form-control" asp-items="ViewBag.DeskName"></select>
                 <span asp-validation-for="AvailDesk.DeskID" class="text-danger"></span>
             </div>
             <div class="form-group">

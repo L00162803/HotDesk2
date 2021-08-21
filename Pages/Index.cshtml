@@ -5,11 +5,17 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Desk Reservations</h1>
-    
+    <h1 class="display-4">Desk Reservations</h1>    
 </div>
-<form method="post">
-    <select asp-for="selectedUserID" asp-items="Model.UserList" onchange="this.form.submit();">
-        <option value="">Logon As</option>
-    </select>       
-</form>
+
+<div id="logonUser">
+    <br />
+    <br />
+
+    <form method="post">
+        <select asp-for="selectedUserID" asp-items="Model.UserList" onchange="this.form.submit();">
+            <option value="">Logon As</option>
+        </select>
+    </form>
+
+</div>

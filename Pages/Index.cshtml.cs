@@ -42,8 +42,14 @@ namespace HotDesk.Pages
         }
         public async Task<IActionResult> OnPost()            
         {
-            activeUser = selectedUserID;      
+            activeUser = selectedUserID;
+            // User Type
+            List<User> selectedUser = (from r in _context.User
+                                               where r.ID == selectedUserID
+                                               select r).ToList();
+            String userType = selectedUser[0].Type;
             HttpContext.Session.SetString("ActiveUser",activeUser.ToString());
+            HttpContext.Session.SetString("ActiveUserType", userType);
             return RedirectToAction("OnGet");
             
         }

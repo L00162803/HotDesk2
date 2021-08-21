@@ -78,18 +78,21 @@ body {
     width: 12%;
 }
 
-#DeskReservationsContainer .day.Available {
-    background-color: greenyellow;
-}
+    #DeskReservationsContainer .day.Available {
+        background-color: greenyellow;        
+    }
 
-#DeskReservationsContainer .day.UnAvailable {
-    background-color: lightgray;
-}
+    #DeskReservationsContainer .day.UnAvailable {
+        background-color: lightgray;
+    }
 
-#DeskReservationsContainer .day.BookedByMe {
-    background-color: deepskyblue;
-}
+    #DeskReservationsContainer .day.BookedByMe {
+        background-color: deepskyblue;
+    }
 
-#DeskReservationsContainer .day.BookedByOther {
-    background-color: red;
+    #DeskReservationsContainer .day.BookedByOther {
+        background-color: red;
+    }
+#logonUser{
+    text-align:center
 }

@@ -8,20 +8,20 @@
 <h1>Details</h1>
 
 <div>
-    <h4>AvailDesk</h4>
+    <h4>Available Desks</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AvailDesk.ResvDate)
+            @Html.DisplayNameFor(model => model.AvailDesk.ResvDate.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AvailDesk.ResvDate.ID)
+            @Html.DisplayFor(model => model.AvailDesk.ResvDate.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AvailDesk.Desk)
+            @Html.DisplayNameFor(model => model.AvailDesk.Desk.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AvailDesk.Desk.ID)
+            @Html.DisplayFor(model => model.AvailDesk.Desk.Name)
         </dd>
     </dl>
 </div>

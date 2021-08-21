@@ -2,10 +2,10 @@
 @model HotDesk.Pages.Desks.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Desks";
 }
 
-<h1>Index</h1>
+<h1>Desks</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -25,13 +25,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Desk[0].Name)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.Desk[0].Name)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Desk[0].Location)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.LocationSort">
+                    @Html.DisplayNameFor(model => model.Desk[0].Location)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Desk[0].Category)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.CategorySort">
+                    @Html.DisplayNameFor(model => model.Desk[0].Category)
+                </a>
             </th>
             <th></th>
         </tr>
