@@ -48,8 +48,10 @@ namespace HotDesk.Pages
                                                where r.ID == selectedUserID
                                                select r).ToList();
             String userType = selectedUser[0].Type;
+            String userName = selectedUser[0].FirstName + " "+ selectedUser[0].LastName;
             HttpContext.Session.SetString("ActiveUser",activeUser.ToString());
             HttpContext.Session.SetString("ActiveUserType", userType);
+            HttpContext.Session.SetString("ActiveUserName",userName);
             return RedirectToAction("OnGet");
             
         }

@@ -28,7 +28,14 @@ namespace HotDesk.Pages.Desks
                 return NotFound();
             }
 
-            Desk = await _context.Desk.FirstOrDefaultAsync(m => m.ID == id);
+            //Desk = await _context.Desk.FirstOrDefaultAsync(m => m.ID == id);
+
+            Desk = await _context.Desk
+                .Include(s => s.AvailDesks)
+                .ThenInclude(e => e.ResvDate)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+
 
             if (Desk == null)
             {

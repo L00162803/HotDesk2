@@ -10,7 +10,8 @@
 </head>
 @{ 
     string userID = Context.Session.GetString("ActiveUser");
-    string userType = Context.Session.GetString("ActiveUserType");    
+    string userType = Context.Session.GetString("ActiveUserType");
+    string userName = Context.Session.GetString("ActiveUserName");
 }
 
 <body>
@@ -54,6 +55,10 @@
                                 </li>
                             }
                         }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" style="float:right" asp-area="" asp-page="/Index">@userName</a>
+                            </li>
+
                     </ul>
                 </div>
             </div>

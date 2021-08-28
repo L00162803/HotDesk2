@@ -29,10 +29,33 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Desk.Category)
         </dd>
-
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Desk.AvailDesks)
+            Associated Ranges
+            
         </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Range Name</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                </tr>
+                @foreach (var item in Model.Desk.AvailDesks)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResvDate.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResvDate.FromDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResvDate.ToDate)
+                </td>
+            </tr>
+                }
+            </table>
+        </dd>
 
     </dl>
 </div>

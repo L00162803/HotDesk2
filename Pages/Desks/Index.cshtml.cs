@@ -39,6 +39,20 @@ namespace HotDesk.Pages.Desks
 
             IQueryable<Desk> desksIQ = from s in _context.Desk
                                                select s;
+            IQueryable<string> categoryQuery = from m in _context.Desk
+                                            orderby m.Category
+                                            select m.Category;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                desksIQ = desksIQ.Where(s => s.Category.Contains(SearchString));
+            }
+
+            if (!string.IsNullOrEmpty(DeskCategory))
+            {
+                desksIQ = desksIQ.Where(x => x.Category == DeskCategory);
+            }
+            Categories = new SelectList(await categoryQuery.Distinct().ToListAsync());
 
             switch (sortOrder)
             {

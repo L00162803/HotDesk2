@@ -13,7 +13,7 @@
     <br />
 
     <form method="post">
-        <select asp-for="selectedUserID" asp-items="Model.UserList" onchange="this.form.submit();">
+        <select title="Select User "asp-for="selectedUserID" asp-items="Model.UserList" onchange="this.form.submit();">
             <option value="">Logon As</option>
         </select>
     </form>
