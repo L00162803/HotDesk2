@@ -96,3 +96,10 @@ body {
 #logonUser{
     text-align:center
 }
+.nav-item.last-item {
+    margin-left:auto;
+}
+#DeskReservationsContainer td{
+    border: 5px solid white;
+}
+    

@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Author : Martin Connolly
+//
+// Description
+// Main reservations grid
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +14,7 @@ using HotDesk.Data;
 using HotDesk.Models;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotDesk.Pages.Reservations
 {
@@ -18,7 +24,8 @@ namespace HotDesk.Pages.Reservations
         public ReservationsViewModel ViewModel { get; set; }
         [BindProperty]
         public DateTime selectedDate { get; set; } = new DateTime(2021, 1, 10);        
-        static DateTime startDate = new DateTime(2021, 1, 10);
+        //static DateTime startDate = new DateTime(2021, 1, 10);
+        static DateTime startDate = DateTime.Today;
 
         public IndexModel(HotDesk.Data.HotDeskContext context)
         {
@@ -138,9 +145,13 @@ namespace HotDesk.Pages.Reservations
     }
     public enum DeskStatus
     {
+        [Display(Name="Available")]
         Available = 0,
+        [Display(Name = "Unavailable")]
         UnAvailable = 1,
+        [Display(Name = "Mine")]
         BookedByMe = 2,
+        [Display(Name = "Other")]
         BookedByOther = 3
     }
     public class DeskReservation

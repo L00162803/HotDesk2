@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Author : Martin Connolly
+//
+// Description
+// Edit Reservations controller
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

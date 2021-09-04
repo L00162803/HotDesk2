@@ -44,9 +44,13 @@
                 @Html.DisplayFor(modelItem => item.LogonName)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a title="Details" asp-page="./Details" asp-route-id="@item.ID"><i class="bi bi-three-dots"></i></a>&nbsp;
+                <a title="Edit" asp-page="./Edit" asp-route-id="@item.ID"><i class="bi bi-pencil"></i></a>&nbsp;
+                <a title="Delete" asp-page="./Delete" asp-route-id="@item.ID"><i class="bi bi-trash"></i></a>&nbsp;
+    <!--
+    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+    -->
             </td>
         </tr>
 }

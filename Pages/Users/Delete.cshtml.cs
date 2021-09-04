@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Author : Martin Connolly
+//
+// Description
+// Delete Users controller
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,6 +56,15 @@ namespace HotDesk.Pages.Users
             {
                 _context.User.Remove(User);
                 await _context.SaveChangesAsync();
+                List<Reservation> deskReservations = (from r in _context.Reservation
+                                                      where r.UserID == User.ID
+                                                      select r).ToList();
+
+                foreach (Reservation delReservation in deskReservations)
+                {
+                    _context.Reservation.Remove(delReservation);
+                    await _context.SaveChangesAsync();
+                }
             }
 
             return RedirectToPage("./Index");
